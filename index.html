@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Flora Blanca — San Salvador</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,15 +47,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 22px 6vw;
+    padding: max(16px, env(safe-area-inset-top)) 6vw 16px;
     background: linear-gradient(180deg, rgba(7,9,12,0.85) 0%, rgba(7,9,12,0) 100%);
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border-subtle);
   }
   .nav-brand {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     text-decoration: none;
     color: var(--text-main);
   }
@@ -80,7 +81,7 @@
   .nav-links {
     display: flex;
     list-style: none;
-    gap: 32px;
+    gap: 24px;
     align-items: center;
   }
   .nav-links a {
@@ -94,12 +95,13 @@
   }
   .nav-links a:hover { color: var(--text-main); }
   .nav-cta-btn {
-    padding: 10px 20px;
+    padding: 8px 16px;
     background: transparent;
     border: 1px solid var(--accent-gold);
     color: var(--accent-gold) !important;
     border-radius: 2px;
     transition: all 0.25s ease !important;
+    font-size: 12px !important;
   }
   .nav-cta-btn:hover {
     background: var(--accent-gold) !important;
@@ -110,7 +112,8 @@
   .hero-viewport {
     position: relative;
     height: 100vh;
-    min-height: 700px;
+    height: 100dvh;
+    min-height: 620px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -156,7 +159,7 @@
     position: relative;
     z-index: 10;
     width: 100%;
-    padding: 0 6vw 28px;
+    padding: 0 6vw max(20px, env(safe-area-inset-bottom));
   }
   .hero-docked-card {
     background: rgba(7, 10, 15, 0.08);
@@ -194,7 +197,7 @@
   }
   .hero-title {
     font-family: var(--font-heading);
-    font-size: clamp(24px, 2.6vw, 36px);
+    font-size: clamp(22px, 2.6vw, 36px);
     font-weight: 700;
     line-height: 1.15;
     letter-spacing: -0.02em;
@@ -298,7 +301,7 @@
   }
   .stat-val {
     font-family: var(--font-heading);
-    font-size: clamp(32px, 3.5vw, 48px);
+    font-size: clamp(30px, 3.5vw, 48px);
     font-weight: 700;
     color: var(--accent-gold);
     line-height: 1;
@@ -315,7 +318,7 @@
 
   /* SXSW SECTION */
   .sxsw-section {
-    padding: 120px 6vw;
+    padding: 100px 6vw;
     background: 
       radial-gradient(circle at 20% 30%, rgba(142,68,173,0.22), transparent 45%),
       radial-gradient(circle at 80% 70%, rgba(226,183,100,0.15), transparent 45%),
@@ -346,12 +349,12 @@
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(226, 183, 100, 0.35);
     border-radius: 6px;
-    padding: 64px;
+    padding: 56px 48px;
     position: relative;
     z-index: 5;
     display: grid;
     grid-template-columns: 1.2fr 1fr;
-    gap: 60px;
+    gap: 48px;
     align-items: center;
   }
   .sxsw-eyebrow {
@@ -371,28 +374,28 @@
   }
   .sxsw-heading {
     font-family: var(--font-heading);
-    font-size: clamp(32px, 4vw, 56px);
+    font-size: clamp(28px, 3.8vw, 52px);
     font-weight: 700;
     line-height: 1.05;
     letter-spacing: -0.02em;
     color: var(--text-main);
   }
   .sxsw-desc {
-    margin-top: 20px;
+    margin-top: 18px;
     font-size: 15px;
     color: var(--text-muted);
     line-height: 1.7;
   }
   .sxsw-highlights {
-    margin-top: 28px;
+    margin-top: 24px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    gap: 14px;
   }
   .sxsw-hl-item {
     background: rgba(255,255,255,0.03);
     border: 1px solid var(--border-subtle);
-    padding: 14px 18px;
+    padding: 14px 16px;
     border-radius: 3px;
   }
   .sxsw-hl-title {
@@ -410,7 +413,7 @@
   .sxsw-form-side {
     background: var(--bg-primary);
     border: 1px solid var(--border-subtle);
-    padding: 40px;
+    padding: 36px 32px;
     border-radius: 4px;
   }
   .sxsw-badge-tag {
@@ -423,7 +426,7 @@
     font-weight: 700;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     border-radius: 2px;
   }
   .sxsw-form-title {
@@ -436,36 +439,36 @@
   .sxsw-form-sub {
     font-size: 13px;
     color: var(--text-muted);
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
   .input-field {
     width: 100%;
-    padding: 14px 18px;
+    padding: 13px 16px;
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: 2px;
     color: var(--text-main);
     font-family: var(--font-body);
     font-size: 14px;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
     outline: none;
     transition: border-color 0.2s;
   }
   .input-field:focus { border-color: var(--accent-gold); }
   .btn-block {
     width: 100%;
-    padding: 16px;
+    padding: 15px;
     cursor: pointer;
   }
 
   /* CAMPUS MASTER PLAN */
   .campus-section {
-    padding: 120px 6vw;
+    padding: 100px 6vw;
     background: var(--bg-primary);
   }
   .section-header {
     max-width: var(--container-max);
-    margin: 0 auto 64px;
+    margin: 0 auto 52px;
   }
   .section-eyebrow {
     font-size: 12px;
@@ -477,13 +480,13 @@
   }
   .section-title {
     font-family: var(--font-heading);
-    font-size: clamp(30px, 3.8vw, 48px);
+    font-size: clamp(28px, 3.8vw, 48px);
     font-weight: 700;
     line-height: 1.1;
     letter-spacing: -0.02em;
   }
   .section-sub {
-    margin-top: 16px;
+    margin-top: 14px;
     font-size: 15px;
     color: var(--text-muted);
     max-width: 640px;
@@ -494,12 +497,12 @@
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
+    gap: 28px;
   }
   .campus-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
-    padding: 36px 32px;
+    padding: 32px 28px;
     border-radius: 4px;
     transition: transform 0.3s ease, border-color 0.3s ease;
     position: relative;
@@ -521,17 +524,17 @@
   .campus-card:hover::before { opacity: 1; }
   .card-num {
     font-family: var(--font-heading);
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     color: var(--accent-gold);
     letter-spacing: 0.1em;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
   .card-title {
     font-family: var(--font-heading);
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 700;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     color: var(--text-main);
   }
   .card-text {
@@ -542,7 +545,7 @@
 
   /* PHASES */
   .phases-section {
-    padding: 120px 6vw;
+    padding: 100px 6vw;
     background: var(--bg-surface);
     border-top: 1px solid var(--border-subtle);
   }
@@ -556,7 +559,7 @@
   .phase-box {
     background: var(--bg-elevated);
     border: 1px solid var(--border-subtle);
-    padding: 40px 32px;
+    padding: 36px 28px;
     border-radius: 4px;
     display: flex;
     flex-direction: column;
@@ -572,21 +575,21 @@
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--accent-gold);
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
   .phase-name {
     font-family: var(--font-heading);
-    font-size: 22px;
+    font-size: 21px;
     font-weight: 700;
     color: var(--text-main);
-    margin-bottom: 14px;
+    margin-bottom: 12px;
   }
   .phase-details {
     list-style: none;
-    margin-top: 20px;
+    margin-top: 18px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
   }
   .phase-details li {
     font-size: 13px;
@@ -603,7 +606,7 @@
 
   /* OPPORTUNITY */
   .opportunity-section {
-    padding: 120px 6vw;
+    padding: 100px 6vw;
     background: var(--bg-primary);
   }
   .opportunity-container {
@@ -611,39 +614,39 @@
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    gap: 52px;
     align-items: start;
   }
   .opp-left h2 {
     font-family: var(--font-heading);
-    font-size: clamp(32px, 3.8vw, 48px);
+    font-size: clamp(28px, 3.8vw, 48px);
     font-weight: 700;
     line-height: 1.1;
   }
   .opp-left p {
-    margin-top: 20px;
+    margin-top: 18px;
     font-size: 15px;
     color: var(--text-muted);
     line-height: 1.7;
   }
   .opp-pills {
-    margin-top: 36px;
+    margin-top: 32px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
   }
   .opp-pill {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
-    padding: 20px 24px;
+    padding: 18px 22px;
     border-radius: 4px;
   }
   .opp-pill-h {
     font-family: var(--font-heading);
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 700;
     color: var(--accent-gold);
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
   .opp-pill-p {
     font-size: 13px;
@@ -652,30 +655,30 @@
   .inquiry-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
-    padding: 48px;
+    padding: 40px 36px;
     border-radius: 6px;
   }
   .inquiry-title {
     font-family: var(--font-heading);
-    font-size: 24px;
+    font-size: 23px;
     font-weight: 700;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
   .inquiry-desc {
-    font-size: 14px;
+    font-size: 13.5px;
     color: var(--text-muted);
-    margin-bottom: 28px;
+    margin-bottom: 24px;
   }
   .disclaimer-text {
     font-size: 11px;
     color: #647082;
-    margin-top: 18px;
+    margin-top: 16px;
     line-height: 1.6;
   }
 
   /* FOOTER */
   footer {
-    padding: 60px 6vw;
+    padding: 48px 6vw;
     background: #040507;
     border-top: 1px solid var(--border-subtle);
     display: flex;
@@ -683,8 +686,12 @@
     align-items: center;
     font-size: 12px;
     color: var(--text-muted);
+    padding-bottom: max(32px, env(safe-area-inset-bottom));
   }
 
+  /* ==========================================================================
+     RESPONSIVE BREAKPOINTS (Enhanced for iPhone / Mobile Portrait)
+     ========================================================================== */
   @media (max-width: 1024px) {
     .hero-docked-card { grid-template-columns: 1fr; }
     .hero-actions { align-items: flex-start; }
@@ -692,12 +699,61 @@
     .stats-container, .campus-grid, .phases-timeline { grid-template-columns: repeat(2, 1fr); }
     .sxsw-card, .opportunity-container { grid-template-columns: 1fr; }
   }
-  @media (max-width: 640px) {
-    .stats-container, .campus-grid, .phases-timeline { grid-template-columns: 1fr; }
-    .hero-docked-card { padding: 18px; }
-    .sxsw-card { padding: 32px 24px; }
-    .hero-btn-group { flex-direction: column; width: 100%; }
-    .btn-primary, .btn-secondary { width: 100%; }
+
+  @media (max-width: 768px) {
+    nav { padding: max(14px, env(safe-area-inset-top)) 5vw 14px; }
+    .nav-links li:not(:last-child) { display: none; }
+    .nav-cta-btn { padding: 6px 12px; font-size: 11px !important; }
+
+    .hero-viewport { min-height: 580px; }
+    .hero-bottom-bar { padding: 0 4vw max(16px, env(safe-area-inset-bottom)); }
+    .hero-docked-card {
+      padding: 18px 18px;
+      gap: 16px;
+      background: rgba(7, 10, 15, 0.15);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+    .hero-badge { font-size: 10px; margin-bottom: 4px; }
+    .hero-title { font-size: 22px; line-height: 1.18; }
+    .hero-subtitle { font-size: 12.5px; line-height: 1.45; }
+    .hero-actions { width: 100%; align-items: stretch; gap: 10px; }
+    .hero-btn-group { flex-direction: column; gap: 8px; width: 100%; }
+    .btn-primary, .btn-secondary { width: 100%; padding: 12px 16px; font-size: 11.5px; }
+    .hero-meta-strip { justify-content: space-between; font-size: 10px; gap: 8px; flex-wrap: wrap; }
+
+    .stats-section { padding: 36px 5vw; }
+    .stats-container { grid-template-columns: 1fr 1fr; gap: 20px; }
+    .stat-item { padding-left: 14px; }
+    .stat-val { font-size: 28px; }
+    .stat-label { font-size: 11px; }
+
+    .sxsw-section { padding: 72px 5vw; }
+    .sxsw-card { padding: 28px 20px; gap: 32px; }
+    .sxsw-heading { font-size: 28px; }
+    .sxsw-desc { font-size: 14px; }
+    .sxsw-highlights { grid-template-columns: 1fr; gap: 10px; }
+    .sxsw-form-side { padding: 24px 18px; }
+
+    .campus-section, .phases-section, .opportunity-section { padding: 72px 5vw; }
+    .campus-grid, .phases-timeline { grid-template-columns: 1fr; gap: 18px; }
+    .campus-card, .phase-box { padding: 26px 20px; }
+    .section-header { margin-bottom: 36px; }
+
+    .opportunity-container { gap: 36px; }
+    .inquiry-card { padding: 28px 20px; }
+
+    footer {
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+      padding: 36px 5vw max(24px, env(safe-area-inset-bottom));
+    }
+  }
+
+  @media (max-width: 390px) {
+    .hero-title { font-size: 20px; }
+    .stats-container { grid-template-columns: 1fr; gap: 16px; }
   }
 </style>
 </head>
