@@ -335,6 +335,219 @@
     font-weight: 500;
   }
 
+  /* ==========================================================================
+     FLOATING INFINITE CAROUSEL GALLERY SECTION
+     ========================================================================== */
+  .gallery-section {
+    padding: 90px 0 100px;
+    background: var(--bg-surface);
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .gallery-header {
+    padding: 0 6vw 40px;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .gallery-sub-note {
+    font-size: 12px;
+    color: var(--accent-gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .carousel-marquee {
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+    position: relative;
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+  .carousel-track {
+    display: flex;
+    gap: 24px;
+    animation: marqueeSlide 42s linear infinite;
+    padding: 12px 0;
+  }
+  .carousel-marquee:hover .carousel-track {
+    animation-play-state: paused;
+  }
+  @keyframes marqueeSlide {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .gallery-card {
+    flex: 0 0 340px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .gallery-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--accent-gold);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 20px var(--accent-gold-glow);
+  }
+  .gallery-card-img-wrap {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: #151b22;
+    position: relative;
+  }
+  .gallery-card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .gallery-card:hover .gallery-card-img-wrap img {
+    transform: scale(1.06);
+  }
+  .gallery-card-info {
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .gallery-card-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+  }
+  .gallery-card-title {
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-main);
+  }
+  .gallery-card-hint {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* MODAL / LIGHTBOX VIEW */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(4, 6, 9, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 4vw;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .modal-container {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-gold);
+    border-radius: 8px;
+    max-width: 960px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    transform: scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .modal-overlay.active .modal-container {
+    transform: scale(1);
+  }
+  .modal-close-btn {
+    position: absolute;
+    top: 16px; right: 16px;
+    width: 36px; height: 36px;
+    background: rgba(7, 9, 12, 0.8);
+    border: 1px solid var(--border-subtle);
+    border-radius: 50%;
+    color: var(--text-main);
+    font-size: 18px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.2s;
+  }
+  .modal-close-btn:hover {
+    background: var(--accent-gold);
+    color: #07090c;
+  }
+  .modal-img-wrap {
+    width: 100%;
+    max-height: 560px;
+    background: #07090c;
+    overflow: hidden;
+  }
+  .modal-img-wrap img {
+    width: 100%;
+    height: 100%;
+    max-height: 560px;
+    object-fit: cover;
+    display: block;
+  }
+  .modal-caption-body {
+    padding: 32px 36px;
+  }
+  .modal-tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    margin-bottom: 8px;
+  }
+  .modal-title {
+    font-family: var(--font-heading);
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 12px;
+  }
+  .modal-desc {
+    font-size: 14.5px;
+    color: #cbd5e1;
+    line-height: 1.7;
+  }
+  .modal-prompt-box {
+    margin-top: 18px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border-subtle);
+    border-left: 2px solid var(--accent-gold);
+    padding: 14px 18px;
+    border-radius: 3px;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: monospace;
+    line-height: 1.5;
+  }
+
   /* SXSW SECTION */
   .sxsw-section {
     padding: 100px 6vw;
@@ -708,9 +921,7 @@
     padding-bottom: max(32px, env(safe-area-inset-bottom));
   }
 
-  /* ==========================================================================
-     RESPONSIVE BREAKPOINTS (Enhanced for iPhone / Mobile Portrait)
-     ========================================================================== */
+  /* RESPONSIVE */
   @media (max-width: 1024px) {
     .hero-docked-card { grid-template-columns: 1fr; }
     .hero-actions { align-items: flex-start; }
@@ -740,6 +951,12 @@
     .hero-btn-group { flex-direction: column; gap: 8px; width: 100%; }
     .btn-primary, .btn-secondary { width: 100%; padding: 12px 16px; font-size: 11.5px; }
     .hero-meta-strip { justify-content: space-between; font-size: 10px; gap: 8px; flex-wrap: wrap; }
+
+    .gallery-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .gallery-card { flex: 0 0 280px; }
+    .modal-container { margin: 12px; max-height: 85vh; }
+    .modal-caption-body { padding: 20px 20px; }
+    .modal-title { font-size: 20px; }
 
     .stats-section { padding: 36px 5vw; }
     .stats-container { grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -773,6 +990,7 @@
   @media (max-width: 390px) {
     .hero-title { font-size: 20px; }
     .stats-container { grid-template-columns: 1fr; gap: 16px; }
+    .gallery-card { flex: 0 0 240px; }
   }
 </style>
 </head>
@@ -784,6 +1002,7 @@
     <div class="nav-logo-text">Flora Blanca</div>
   </a>
   <ul class="nav-links">
+    <li><a href="#gallery">Gallery</a></li>
     <li><a href="#campus">The Campus</a></li>
     <li><a href="#phases">Phased Plan</a></li>
     <li><a href="#sxsw">SXSW Event</a></li>
@@ -824,6 +1043,152 @@
     </div>
   </div>
 </section>
+
+<!-- =========================================================================
+     FLOATING INFINITE CAROUSEL GALLERY
+     ========================================================================= -->
+<section class="gallery-section" id="gallery">
+  <div class="gallery-header">
+    <div>
+      <div class="section-eyebrow">Architectural Visualizations</div>
+      <h2 class="section-title">Campus Perspectives</h2>
+    </div>
+    <div class="gallery-sub-note">Tap any perspective to expand · Hover to pause</div>
+  </div>
+
+  <div class="carousel-marquee">
+    <!-- Track 1 (Duplicated twice for seamless infinite float loop) -->
+    <div class="carousel-track">
+      <!-- Item 1: DJ / Concert -->
+      <div class="gallery-card" onclick="openLightbox(0)">
+        <div class="gallery-card-img-wrap">
+          <img src="assets/gallery-1-concert-dj.jpg" alt="Concert Atrium" onerror="this.src='assets/og-preview.jpg'">
+        </div>
+        <div class="gallery-card-info">
+          <div class="gallery-card-tag">Interior Experience</div>
+          <div class="gallery-card-title">Hexagonal Dome Concert Venue</div>
+          <div class="gallery-card-hint"><span>↗</span> Tap to expand detail</div>
+        </div>
+      </div>
+
+      <!-- Item 2: Top Down Master Plan -->
+      <div class="gallery-card" onclick="openLightbox(1)">
+        <div class="gallery-card-img-wrap">
+          <img src="assets/gallery-2-masterplan-topdown.jpg" alt="Master Plan" onerror="this.src='assets/og-preview.jpg'">
+        </div>
+        <div class="gallery-card-info">
+          <div class="gallery-card-tag">Master Architecture</div>
+          <div class="gallery-card-title">9,446 m² Parcel 309 Layout</div>
+          <div class="gallery-card-hint"><span>↗</span> Tap to expand detail</div>
+        </div>
+      </div>
+
+      <!-- Item 3: Blueprint / CAD -->
+      <div class="gallery-card" onclick="openLightbox(2)">
+        <div class="gallery-card-img-wrap">
+          <img src="assets/gallery-3-blueprint-schematic.jpg" alt="Blueprint" onerror="this.src='assets/og-preview.jpg'">
+        </div>
+        <div class="gallery-card-info">
+          <div class="gallery-card-tag">Engineering Schematics</div>
+          <div class="gallery-card-title">36-Floor Phased CAD Drafting</div>
+          <div class="gallery-card-hint"><span>↗</span> Tap to expand detail</div>
+        </div>
+      </div>
+
+      <!-- Item 4: Street Promenade -->
+      <div class="gallery-card" onclick="openLightbox(3)">
+        <div class="gallery-card-img-wrap">
+          <img src="assets/gallery-4-street-promenade.jpg" alt="Street Promenade" onerror="this.src='assets/og-preview.jpg'">
+        </div>
+        <div class="gallery-card-info">
+          <div class="gallery-card-tag">Civic Ground</div>
+          <div class="gallery-card-title">Pedestrian Promenade &amp; Retail</div>
+          <div class="gallery-card-hint"><span>↗</span> Tap to expand detail</div>
+        </div>
+      </div>
+
+      <!-- Item 5: Rooftop Horizon -->
+      <div class="gallery-card" onclick="openLightbox(4)">
+        <div class="gallery-card-img-wrap">
+          <img src="assets/gallery-5-rooftop-horizon.jpg" alt="Rooftop Lounge" onerror="this.src='assets/og-preview.jpg'">
+        </div>
+        <div class="gallery-card-info">
+          <div class="gallery-card-tag">Hospitality Block</div>
+          <div class="gallery-card-title">Rooftop Horizon &amp; Infinity Terrace</div>
+          <div class="gallery-card-hint"><span>↗</span> Tap to expand detail</div>
+        </div>
+      </div>
+
+      <!-- DUPLICATE FOR INFINITE SEAMLESS LOOP -->
+      <div class="gallery-card" onclick="openLightbox(0)">
+        <div class="gallery-card-img-wrap">
+          <img src="assets/gallery-1-concert-dj.jpg" alt="Concert Atrium" onerror="this.src='assets/og-preview.jpg'">
+        </div>
+        <div class="gallery-card-info">
+          <div class="gallery-card-tag">Interior Experience</div>
+          <div class="gallery-card-title">Hexagonal Dome Concert Venue</div>
+          <div class="gallery-card-hint"><span>↗</span> Tap to expand detail</div>
+        </div>
+      </div>
+      <div class="gallery-card" onclick="openLightbox(1)">
+        <div class="gallery-card-img-wrap">
+          <img src="assets/gallery-2-masterplan-topdown.jpg" alt="Master Plan" onerror="this.src='assets/og-preview.jpg'">
+        </div>
+        <div class="gallery-card-info">
+          <div class="gallery-card-tag">Master Architecture</div>
+          <div class="gallery-card-title">9,446 m² Parcel 309 Layout</div>
+          <div class="gallery-card-hint"><span>↗</span> Tap to expand detail</div>
+        </div>
+      </div>
+      <div class="gallery-card" onclick="openLightbox(2)">
+        <div class="gallery-card-img-wrap">
+          <img src="assets/gallery-3-blueprint-schematic.jpg" alt="Blueprint" onerror="this.src='assets/og-preview.jpg'">
+        </div>
+        <div class="gallery-card-info">
+          <div class="gallery-card-tag">Engineering Schematics</div>
+          <div class="gallery-card-title">36-Floor Phased CAD Drafting</div>
+          <div class="gallery-card-hint"><span>↗</span> Tap to expand detail</div>
+        </div>
+      </div>
+      <div class="gallery-card" onclick="openLightbox(3)">
+        <div class="gallery-card-img-wrap">
+          <img src="assets/gallery-4-street-promenade.jpg" alt="Street Promenade" onerror="this.src='assets/og-preview.jpg'">
+        </div>
+        <div class="gallery-card-info">
+          <div class="gallery-card-tag">Civic Ground</div>
+          <div class="gallery-card-title">Pedestrian Promenade &amp; Retail</div>
+          <div class="gallery-card-hint"><span>↗</span> Tap to expand detail</div>
+        </div>
+      </div>
+      <div class="gallery-card" onclick="openLightbox(4)">
+        <div class="gallery-card-img-wrap">
+          <img src="assets/gallery-5-rooftop-horizon.jpg" alt="Rooftop Lounge" onerror="this.src='assets/og-preview.jpg'">
+        </div>
+        <div class="gallery-card-info">
+          <div class="gallery-card-tag">Hospitality Block</div>
+          <div class="gallery-card-title">Rooftop Horizon &amp; Infinity Terrace</div>
+          <div class="gallery-card-hint"><span>↗</span> Tap to expand detail</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX MODAL -->
+<div class="modal-overlay" id="galleryModal" onclick="closeLightbox(event)">
+  <div class="modal-container" onclick="event.stopPropagation()">
+    <button class="modal-close-btn" onclick="closeLightbox()">&times;</button>
+    <div class="modal-img-wrap">
+      <img id="modalImg" src="" alt="Expanded View">
+    </div>
+    <div class="modal-caption-body">
+      <div class="modal-tag" id="modalTag">TAG</div>
+      <h3 class="modal-title" id="modalTitle">Title</h3>
+      <p class="modal-desc" id="modalDesc">Description</p>
+      <div class="modal-prompt-box" id="modalPrompt">Prompt detail...</div>
+    </div>
+  </div>
+</div>
 
 <section class="stats-section">
   <div class="stats-container">
@@ -1034,6 +1399,68 @@
   <div>SXSW 2027 AUSTIN · MYSTERIOR · STEEL AND AIRE</div>
   <div>CONFIDENTIAL PREVIEW</div>
 </footer>
+
+<script>
+  /* LIGHTBOX MODAL DATA & CONTROLLER */
+  const galleryData = [
+    {
+      img: "assets/gallery-1-concert-dj.jpg",
+      tag: "Interior Experience · Music & Culture",
+      title: "Hexagonal Dome Concert Venue & DJ Stage",
+      desc: "Inside the colossal climate-controlled glass atrium. Designed as an air-conditioned European-style promenade by day, the central arena converts into a premier multi-tier concert venue with laser arrays, elevated DJ booth, and perimeter cocktail lounges overlooking the performance floor.",
+      prompt: "Render Focus: Monumental hexagonal glass lattice roof, warm dusk sky view, purple/amber moving beam lights, multi-level dining balconies, and central concert crowd."
+    },
+    {
+      img: "assets/gallery-2-masterplan-topdown.jpg",
+      tag: "Master Architecture · 9,446 m² Site",
+      title: "Parcel 309 Orthographic Master Plan",
+      desc: "Top-down 90-degree aerial site analysis showing the complete Alameda Roosevelt streetscape integration, the corner 36-floor tower footprint, the central hexagonal dome, and the continuous perimeter of open-air retail pavilions and reflecting courtyards.",
+      prompt: "Render Focus: Orthographic bird's-eye architectural model, urban street grid, pedestrian circulation, palm courtyards, and glowing atrium crown."
+    },
+    {
+      img: "assets/gallery-3-blueprint-schematic.jpg",
+      tag: "Engineering & Phased Strategy",
+      title: "36-Floor CAD Cross-Section & Foundation Pilings",
+      desc: "Architectural blueprint detailing the vertical expansion strategy: Stage 1 deep-pile seismic foundation, Stage 2 volumetric steel modular hotel blocks (CitizenM / Another Star methodology), and Stage 3 executive tower with 15-year tax incentive eligibility.",
+      prompt: "Render Focus: Navy blueprint drafting aesthetic, cyan/white CAD linework, vertical elevation zones, seismic foundation piles, and engineering dimensions."
+    },
+    {
+      img: "assets/gallery-4-street-promenade.jpg",
+      tag: "Civic Ground · Culinary Boulevard",
+      title: "Legacy West–Inspired Pedestrian Promenade",
+      desc: "Street-level eye-level perspective along the outdoor dining and boutique promenade. Floor-to-ceiling ultra-clear glass storefronts, Mayan stone accents, lush tropical landscaping, and upward views of the illuminated hexagonal dome and tower.",
+      prompt: "Render Focus: 35mm street-level photography, outdoor cafes, stone pavers, water fountain features, warm golden-hour lighting, and towering atrium glass ribs."
+    },
+    {
+      img: "assets/gallery-5-rooftop-horizon.jpg",
+      tag: "Hospitality & Longevity Block",
+      title: "Hotel Rooftop Horizon & Infinity Pool Terrace",
+      desc: "Sunset view from the modular hotel tower terrace overlooking the glowing hexagonal glass dome below. Features an infinity pool, private lounge fire pits, and panoramic views across San Salvador to the volcano silhouette.",
+      prompt: "Render Focus: Twilight infinity pool reflections, glowing glass dome below, volcano silhouette, glass balustrades, and high-end hospitality lounge."
+    }
+  ];
+
+  function openLightbox(index) {
+    const item = galleryData[index];
+    document.getElementById('modalImg').src = item.img;
+    document.getElementById('modalTag').innerText = item.tag;
+    document.getElementById('modalTitle').innerText = item.title;
+    document.getElementById('modalDesc').innerText = item.desc;
+    document.getElementById('modalPrompt').innerText = item.prompt;
+    document.getElementById('galleryModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox(e) {
+    if (e && e.target !== e.currentTarget && !e.target.classList.contains('modal-close-btn')) return;
+    document.getElementById('galleryModal').classList.remove('active');
+    document.body.style.overflow = 'auto';
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
 
 </body>
 </html>
