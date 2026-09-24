@@ -36,6 +36,7 @@
     --accent-neon-violet: #8e44ad;
     --accent-neon-glow: rgba(142, 68, 173, 0.4);
     --accent-sunset: #ff7e47;
+    --accent-sunset-glow: rgba(255, 126, 71, 0.35);
     --accent-teal: #2fbfa0;
     --text-main: #ffffff;
     --text-muted: #94a3b8;
@@ -152,6 +153,10 @@
     object-fit: cover;
     object-position: center;
     filter: brightness(1) contrast(1.02);
+    transition: opacity 0.3s ease;
+  }
+  .video-container video.is-transitioning {
+    opacity: 0;
   }
   .video-fallback {
     position: absolute;
@@ -171,6 +176,115 @@
       transparent 70%, 
       rgba(7,9,12,0.4) 100%);
     pointer-events: none;
+  }
+
+  /* ==========================================================================
+     HERO VIDEO & MUSIC SELECTORS (MATCHED CIRCLE UI)
+     ========================================================================== */
+  .hero-controls-bar {
+    position: absolute;
+    top: calc(max(16px, env(safe-area-inset-top)) + 64px);
+    right: 6vw;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+  }
+  .control-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(7, 10, 15, 0.45);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 6px 12px;
+    border-radius: 30px;
+  }
+  .control-group.is-hidden {
+    display: none !important;
+  }
+  .control-group-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-heading);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-sunset);
+  }
+  .control-group-label svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+  .selector-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .selector-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: var(--accent-sunset);
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: all 0.2s ease;
+    padding: 0;
+    line-height: 1;
+    outline: none;
+  }
+  .selector-circle:hover {
+    transform: scale(1.08);
+    border-color: var(--accent-sunset);
+    background: rgba(255, 126, 71, 0.12);
+  }
+  .selector-circle:focus-visible {
+    box-shadow: 0 0 0 2px var(--text-main), 0 0 0 4px var(--accent-sunset);
+  }
+  .selector-circle.active {
+    border-color: var(--accent-sunset);
+    border-width: 2px;
+    background: rgba(255, 126, 71, 0.22);
+    box-shadow: 0 0 16px var(--accent-sunset-glow);
+    color: #ffffff;
+  }
+  .audio-toggle-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: var(--text-muted);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: all 0.2s ease;
+    padding: 0;
+  }
+  .audio-toggle-btn:hover {
+    border-color: var(--accent-sunset);
+    color: var(--accent-sunset);
+  }
+  .audio-toggle-btn.is-playing {
+    border-color: var(--accent-sunset);
+    color: var(--accent-sunset);
+    background: rgba(255, 126, 71, 0.15);
+  }
+  .audio-toggle-btn svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
   }
 
   /* Ultra-sheer glass bar */
@@ -936,6 +1050,20 @@
     .nav-cta-btn { padding: 6px 12px; font-size: 11px !important; }
 
     .hero-viewport { min-height: 580px; }
+    .hero-controls-bar {
+      top: calc(max(14px, env(safe-area-inset-top)) + 52px);
+      right: 4vw;
+      gap: 8px;
+    }
+    .control-group {
+      padding: 4px 10px;
+    }
+    .selector-circle {
+      width: 34px;
+      height: 34px;
+      font-size: 12px;
+    }
+
     .hero-bottom-bar { padding: 0 4vw max(16px, env(safe-area-inset-bottom)); }
     .hero-docked-card {
       padding: 18px 18px;
@@ -1013,12 +1141,37 @@
 <section class="hero-viewport">
   <div class="video-container">
     <div class="video-fallback"></div>
-    <video autoplay loop muted playsinline>
+    <video id="heroVideoPlayer" autoplay loop muted playsinline>
       <source src="assets/hero-loop.mp4" type="video/mp4">
       <source src="hero-loop.mp4" type="video/mp4">
       <source src="1776fc4e-0bfe-4ec5-ace2-32456d3a5302-video.mp4" type="video/mp4">
     </video>
     <div class="video-overlay"></div>
+  </div>
+
+  <!-- HERO VIDEO & MUSIC SELECTORS (UP TO 4 SLOTS EACH) -->
+  <div class="hero-controls-bar">
+    <!-- Video Selector -->
+    <div class="control-group is-hidden" id="videoSelectorGroup">
+      <div class="control-group-label">
+        <svg viewBox="0 0 24 24"><path d="M4 4h10v16H4zM16 8l6-4v16l-6-4z"/></svg>
+        <span>View</span>
+      </div>
+      <div class="selector-row" id="videoSelectorRow"></div>
+    </div>
+
+    <!-- Music Selector -->
+    <div class="control-group is-hidden" id="audioSelectorGroup">
+      <div class="control-group-label">
+        <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+        <span>Audio</span>
+      </div>
+      <div class="selector-row" id="audioSelectorRow"></div>
+      <button class="audio-toggle-btn" id="audioMuteToggle" aria-label="Toggle mute" onclick="toggleAudioMute()">
+        <svg id="audioIconMuted" viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+        <svg id="audioIconPlaying" style="display:none;" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+      </button>
+    </div>
   </div>
 
   <div class="hero-bottom-bar">
@@ -1057,7 +1210,6 @@
   </div>
 
   <div class="carousel-marquee">
-    <!-- Track 1 (Duplicated twice for seamless infinite float loop) -->
     <div class="carousel-track">
       <!-- Item 1: DJ / Concert -->
       <div class="gallery-card" onclick="openLightbox(0)">
@@ -1216,7 +1368,9 @@
     <div class="sxsw-content">
       <div class="sxsw-eyebrow">SXSW 2027 Official Satellite Experience</div>
       <h2 class="sxsw-heading">Flora Blanca at SXSW Austin</h2>
-      <p class="sxsw-desc">\n        A private After-Hours cookout and micro-festival connecting the founders, creators, and technology pioneers driving El Salvador's green, sovereign innovation economy with global real estate and venture capital.\n      </p>
+      <p class="sxsw-desc">
+        A private After-Hours cookout and micro-festival connecting the founders, creators, and technology pioneers driving El Salvador's green, sovereign innovation economy with global real estate and venture capital.
+      </p>
       <div class="sxsw-highlights">
         <div class="sxsw-hl-item">
           <div class="sxsw-hl-title">Culinary Showcase</div>
@@ -1399,6 +1553,156 @@
 </footer>
 
 <script>
+  /* ==========================================================================
+     HERO VIDEO & BACKGROUND AUDIO SELECTOR CONTROLLER
+     Config arrays: add up to 4 video/audio sources.
+     If a slot is null or if total active slots <= 1, the selector stays hidden.
+     ========================================================================== */
+  const heroVideos = [
+    "assets/hero-loop.mp4",
+    null,
+    null,
+    null
+  ];
+
+  const bgTracks = [
+    null,
+    null,
+    null,
+    null
+  ];
+
+  let currentVideoIndex = 0;
+  let currentAudioIndex = -1;
+  let bgAudioElement = null;
+
+  function initHeroVideoSelector() {
+    const videoRow = document.getElementById('videoSelectorRow');
+    const videoGroup = document.getElementById('videoSelectorGroup');
+    const validVideos = heroVideos.map((url, idx) => ({ url, idx: idx + 1 })).filter(item => item.url);
+
+    if (validVideos.length <= 1) {
+      videoGroup.classList.add('is-hidden');
+      return;
+    }
+
+    videoGroup.classList.remove('is-hidden');
+    videoRow.innerHTML = '';
+
+    validVideos.forEach((item, index) => {
+      const btn = document.createElement('button');
+      btn.className = `selector-circle ${index === currentVideoIndex ? 'active' : ''}`;
+      btn.innerText = item.idx;
+      btn.setAttribute('aria-label', `Play hero video ${item.idx}`);
+      btn.onclick = () => switchHeroVideo(index, item.url);
+      videoRow.appendChild(btn);
+    });
+  }
+
+  function switchHeroVideo(index, videoUrl) {
+    if (index === currentVideoIndex) return;
+    currentVideoIndex = index;
+    const videoEl = document.getElementById('heroVideoPlayer');
+
+    videoEl.classList.add('is-transitioning');
+    setTimeout(() => {
+      videoEl.src = videoUrl;
+      videoEl.load();
+      videoEl.play().catch(() => {});
+      videoEl.classList.remove('is-transitioning');
+    }, 250);
+
+    const buttons = document.querySelectorAll('#videoSelectorRow .selector-circle');
+    buttons.forEach((btn, i) => btn.classList.toggle('active', i === index));
+  }
+
+  function initAudioSelector() {
+    const audioRow = document.getElementById('audioSelectorRow');
+    const audioGroup = document.getElementById('audioSelectorGroup');
+    const validTracks = bgTracks.map((url, idx) => ({ url, idx: idx + 1 })).filter(item => item.url);
+
+    if (validTracks.length === 0) {
+      audioGroup.classList.add('is-hidden');
+      return;
+    }
+
+    audioGroup.classList.remove('is-hidden');
+    audioRow.innerHTML = '';
+
+    validTracks.forEach((item, index) => {
+      const btn = document.createElement('button');
+      btn.className = `selector-circle ${index === currentAudioIndex ? 'active' : ''}`;
+      btn.innerText = item.idx;
+      btn.setAttribute('aria-label', `Play background track ${item.idx}`);
+      btn.onclick = () => playBackgroundAudio(index, item.url);
+      audioRow.appendChild(btn);
+    });
+  }
+
+  function playBackgroundAudio(index, trackUrl) {
+    if (!bgAudioElement) {
+      bgAudioElement = new Audio();
+      bgAudioElement.loop = true;
+    }
+
+    if (currentAudioIndex === index && !bgAudioElement.paused) {
+      bgAudioElement.pause();
+      currentAudioIndex = -1;
+      updateAudioUI(false);
+      return;
+    }
+
+    currentAudioIndex = index;
+    bgAudioElement.src = trackUrl;
+    bgAudioElement.play().then(() => {
+      updateAudioUI(true);
+    }).catch(() => {
+      updateAudioUI(false);
+    });
+  }
+
+  function toggleAudioMute() {
+    const validTracks = bgTracks.filter(Boolean);
+    if (validTracks.length === 0) return;
+
+    if (!bgAudioElement) {
+      playBackgroundAudio(0, validTracks[0]);
+      return;
+    }
+
+    if (bgAudioElement.paused) {
+      bgAudioElement.play().then(() => updateAudioUI(true));
+    } else {
+      bgAudioElement.pause();
+      updateAudioUI(false);
+    }
+  }
+
+  function updateAudioUI(isPlaying) {
+    const iconMuted = document.getElementById('audioIconMuted');
+    const iconPlaying = document.getElementById('audioIconPlaying');
+    const muteBtn = document.getElementById('audioMuteToggle');
+    const buttons = document.querySelectorAll('#audioSelectorRow .selector-circle');
+
+    if (isPlaying) {
+      iconMuted.style.display = 'none';
+      iconPlaying.style.display = 'block';
+      muteBtn.classList.add('is-playing');
+    } else {
+      iconMuted.style.display = 'block';
+      iconPlaying.style.display = 'none';
+      muteBtn.classList.remove('is-playing');
+    }
+
+    buttons.forEach((btn, i) => btn.classList.toggle('active', isPlaying && i === currentAudioIndex));
+  }
+
+  // Initialize both selectors on page load
+  document.addEventListener('DOMContentLoaded', () => {
+    initHeroVideoSelector();
+    initAudioSelector();
+  });
+
   /* LIGHTBOX MODAL DATA & CONTROLLER */
   const galleryData = [
     {
